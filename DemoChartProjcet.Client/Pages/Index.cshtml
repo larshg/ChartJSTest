@@ -1,0 +1,97 @@
+﻿@page "/"
+@using ChartJs.Blazor.ChartJS.Common
+@using ChartJs.Blazor.ChartJS.Common.Legends
+@using ChartJs.Blazor.ChartJS.LineChart
+@using ChartJs.Blazor.Charts
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<ChartJsLineChart ref="MyChart" Config="MyConfig" Width="100" Height="200" />
+
+@functions{
+    ChartJsLineChart MyChart;
+
+    LineChartConfig MyConfig;
+
+    protected override void OnInit()
+    {
+        MyConfig = MyConfig ?? new LineChartConfig
+        {
+            CanvasId = "myFirstLineChart",
+            Options = new LineChartOptions
+            {
+                Text = "Sample chart from Blazor",
+                Display = true,
+                Responsive = true,
+                Title = new OptionsTitle { Display = true, Text = "Line Chart" },
+                Legend = new Legend
+                {
+                    Position = LegendPosition.BOTTOM.ToString(),
+                    Labels = new Labels
+                    {
+                        UsePointStyle = true
+                    }
+                },
+                Tooltips = new Tooltips
+                {
+                    Mode = Mode.nearest,
+                    Intersect = false
+                },
+                Scales = new Scales
+                {
+                    xAxes = new List<Axis>
+                {
+                    new Axis
+                    {
+                        Display = "xAxesDisplay",
+                        ScaleLabel = new ScaleLabel
+                        {
+                            Display = ".",
+                            LabelString = ".labelString"
+                        }
+                    }
+                },
+                    yAxes = new List<Axis>
+                {
+                    new Axis
+                    {
+                        Display = "yAxes",
+                        ScaleLabel = new ScaleLabel
+                        {
+                            Display = "..",
+                            LabelString = "..label"
+                        }
+                    }
+                }
+                },
+                Hover = new LineChartOptionsHover
+                {
+                    Intersect = true,
+                    Mode = Mode.nearest
+                }
+            },
+            Data = new LineChartData
+            {
+                Labels = new List<string> { "Red", "Blue", "Yellow", "Green", "Purple", "Orange" },
+                Datasets = new List<LineChartDataset>
+            {
+                new LineChartDataset
+                {
+                    BackgroundColor = "#ff6384",
+                    BorderColor = "#ff6384",
+                    Label = "# of Votes from blazor",
+                    Data = new List<object> {4, 6, 2, 7, 9, 1},
+                    Fill = false,
+                    BorderWidth = 2,
+                    PointRadius = 3,
+                    PointBorderWidth = 1
+                }
+            }
+            }
+        };
+    }
+}
